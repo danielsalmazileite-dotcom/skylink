@@ -1,0 +1,8 @@
+{
+  "name": "SkyLink",
+  "description": "A nostalgic, Skype-inspired communication platform powered by Gemini. Experience worldwide AI-driven voice calls and chat in a classic 2000s interface.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

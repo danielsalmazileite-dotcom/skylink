@@ -1,0 +1,1 @@
+npx -y vite@6.2.0 --port 3002 --strictPort

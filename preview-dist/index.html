@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyLink Metro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+
+      /* Animated Background Base */
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Theme Gradients - FASTER ANIMATION (6s) */
+      .bg-theme-blue {
+        background: linear-gradient(-45deg, #0b4182, #1e5799, #2989d8, #207cca, #1e5799);
+        background-size: 400% 400%;
+        animation: gradientFlow 6s ease infinite;
+      }
+
+      .bg-theme-green {
+        /* Light Green / Metro Green Palette */
+        background: linear-gradient(-45deg, #4b7012, #6aa804, #8ccf1e, #73b703, #6aa804);
+        background-size: 400% 400%;
+        animation: gradientFlow 6s ease infinite;
+      }
+
+      .bg-theme-lightblue {
+        background: linear-gradient(-45deg, #7ec8ff, #a8dcff, #d0ecff, #a8dcff, #7ec8ff);
+        background-size: 400% 400%;
+        animation: gradientFlow 6s ease infinite;
+      }
+
+      .bg-theme-nightblue {
+        background: linear-gradient(-45deg, #0a0f1f, #0e1b33, #000000, #0e1b33, #0a0f1f);
+        background-size: 400% 400%;
+        animation: gradientFlow 6s ease infinite;
+      }
+
+      .bg-theme-gray {
+        background: linear-gradient(-45deg, #0b0b0b, #141414, #1a1a1a, #141414, #0b0b0b);
+        background-size: 400% 400%;
+        animation: gradientFlow 6s ease infinite;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 400;
+        overflow: hidden;
+        user-select: none;
+        background-color: transparent; /* Let React app handle background */
+      }
+      
+      /* Wave Animations - Enhanced Opacity and Movement */
+      @keyframes waveFloat {
+        0% { transform: translate(0, 0) scale(1.0, 1.0); }
+        50% { transform: translate(-60px, 30px) scale(1.1, 1.05); }
+        100% { transform: translate(0, 0) scale(1.0, 1.0); }
+      }
+      
+      @keyframes waveFloatReverse {
+        0% { transform: translate(0, 0) scale(1.0, 1.0); }
+        50% { transform: translate(60px, 35px) scale(1.15, 1.08); }
+        100% { transform: translate(0, 0) scale(1.0, 1.0); }
+      }
+
+      .animate-wave {
+        animation: waveFloat 14s ease-in-out infinite;
+        transform-origin: center bottom;
+        will-change: transform;
+      }
+      
+      .animate-wave-slow {
+        animation: waveFloatReverse 18s ease-in-out infinite;
+        transform-origin: center bottom;
+        will-change: transform;
+      }
+      
+      /* Metro Typography helpers */
+      .font-segoe {
+        font-family: 'Segoe UI', sans-serif;
+      }
+      .font-segoe-light {
+        font-family: 'Segoe UI Light', 'Segoe UI', sans-serif;
+        font-weight: 300;
+      }
+      
+      /* Xbox 360 / Metro Pop Animation */
+      @keyframes metroPop {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.05);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .animate-metro-pop {
+        /* Fast, snappy pop */
+        animation: metroPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        opacity: 0; 
+        will-change: transform, opacity;
+      }
+
+      /* === AERO GLASS & BUTTONS === */
+      
+      .aero-glass {
+        background: rgba(240, 248, 255, 0.85);
+        box-shadow: 
+            inset 0 1px 0 rgba(255,255,255,0.9), 
+            inset 0 0 20px rgba(255,255,255,0.5),
+            0 8px 20px rgba(0,0,0,0.3),
+            0 0 0 1px rgba(255,255,255,0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-top-color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+      }
+
+      /* Authentic Aero Button (Windows 7 / Vista Style) */
+      .btn-aero {
+        position: relative;
+        background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 50%, #cbebff 100%);
+        border: 1px solid #707070;
+        border-color: #93a7b8 #768ca1 #5e768e #768ca1;
+        border-radius: 3px;
+        color: #1e395b;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 13px;
+        padding: 4px 12px;
+        cursor: pointer;
+        box-shadow: 
+            inset 0 1px 0 rgba(255,255,255,0.8), 
+            0 1px 2px rgba(0,0,0,0.15);
+        text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+        transition: all 0.3s;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+      
+      .btn-aero:hover {
+        background: linear-gradient(to bottom, #f5fbff 0%, #dcf2ff 47%, #b6e4ff 50%, #dcf2ff 100%);
+        box-shadow: 
+            inset 0 1px 0 rgba(255,255,255,0.9), 
+            0 0 4px rgba(60,127,177,0.6);
+        border-color: #3c7fb1;
+      }
+      
+      .btn-aero:active {
+        background: linear-gradient(to bottom, #a1dbff 0%, #cbebff 100%);
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        transform: translateY(1px);
+      }
+
+      /* Green Aero Button (Language) */
+      .btn-aero-green {
+        position: relative;
+        background: linear-gradient(to bottom, #e8f8d6 0%, #a9db80 47%, #96c56f 50%, #a9db80 100%);
+        border: 1px solid #5c8a3c;
+        border-radius: 3px;
+        color: #2a4d14;
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 13px;
+        padding: 4px 12px;
+        cursor: pointer;
+        box-shadow: 
+            inset 0 1px 0 rgba(255,255,255,0.7), 
+            0 1px 2px rgba(0,0,0,0.15);
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .btn-aero-green:hover {
+         filter: brightness(1.1);
+         box-shadow: 0 0 6px rgba(92, 138, 60, 0.6), inset 0 0 2px rgba(255,255,255,0.8);
+      }
+
+      .btn-aero-green:active {
+        background: linear-gradient(to bottom, #96c56f 0%, #a9db80 100%);
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        transform: translateY(1px);
+      }
+
+      /* Icon Button (Circular/Square with Gloss) */
+      .btn-aero-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Shared Aero Gradient */
+        background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 50%, #cbebff 100%);
+        border: 1px solid #8e9ca8;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 1px 2px rgba(0,0,0,0.1);
+        color: #1e395b;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .btn-aero-icon:hover {
+        background: linear-gradient(to bottom, #ffffff 0%, #e0f3ff 47%, #bde6ff 50%, #e0f3ff 100%);
+        box-shadow: 0 0 5px rgba(100, 200, 255, 0.5), inset 0 0 0 1px rgba(255,255,255,0.8);
+      }
+      .btn-aero-icon:active {
+        background: #a1dbff;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+      }
+
+      /* Primary Action Button (Green/Blue Gloss) */
+      .btn-aero-primary {
+        /* Glossy Blue-ish Green */
+        background: linear-gradient(to bottom, #e4f5fc 0%, #9dddf7 45%, #6cc0e7 50%, #9dddf7 100%);
+        border: 1px solid #2a6d9e;
+        border-radius: 3px;
+        color: #003e6b;
+        font-weight: 600;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,0,0.2);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+      
+      .btn-aero-primary:hover {
+         filter: brightness(1.05);
+         box-shadow: 0 0 6px rgba(42, 109, 158, 0.5), inset 0 0 2px rgba(255,255,255,0.8);
+      }
+      
+      .btn-aero-primary:active {
+        background: linear-gradient(to bottom, #6cc0e7 0%, #9dddf7 100%);
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        transform: translateY(1px);
+      }
+
+      /* Input Fields Aero Style */
+      .input-aero {
+          border: 1px solid #8e9ca8;
+          border-top-color: #6d7d8d;
+          background: #fff;
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+          border-radius: 2px;
+          transition: all 0.3s;
+      }
+      .input-aero:focus {
+          border-color: #3c7fb1;
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.1), 0 0 0 2px rgba(60, 127, 177, 0.3);
+      }
+
+    </style>
+  
+<link rel="stylesheet" href="/index.css">
+  <script type="module" crossorigin src="/assets/index-BDOF2nH6.js"></script>
+</head>
+  <body>
+    <div id="root"></div>
+</body>
+</html>
