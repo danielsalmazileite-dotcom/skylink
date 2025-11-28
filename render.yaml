@@ -9,3 +9,9 @@ services:
     envVars:
       - key: JWT_SECRET
         generateValue: true
+  - type: static
+    name: skylink-frontend
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install && npm run build
+    publishPath: preview-dist

@@ -26,22 +26,24 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
 
     const trimmedEmail = email.trim();
-
-    setTimeout(() => {
-        const user = mockBackend.login(trimmedEmail, password);
+    try {
+        const user = await mockBackend.login(trimmedEmail, password);
         if (user) {
             onLogin(user);
         } else {
             setError("Account not found or password incorrect.");
             setIsLoading(false);
         }
-    }, 800);
+    } catch {
+        setError("Network error. Please try again.");
+        setIsLoading(false);
+    }
   };
 
   const handleRegister = async (e: React.FormEvent) => {

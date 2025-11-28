@@ -509,7 +509,19 @@ class MockBackendService {
           credentials: 'include',
           body: JSON.stringify({ name, email, password })
         });
-        if (!res.ok) { reject(new Error('Signup failed')); return; }
+        if (!res.ok) {
+          try {
+            const body = await res.json();
+            if (res.status === 409 && body && body.error === 'account_exists') {
+              reject(new Error('Account exists'));
+            } else {
+              reject(new Error('Signup failed'));
+            }
+          } catch {
+            reject(new Error('Signup failed'));
+          }
+          return;
+        }
         const user = await res.json();
         localStorage.setItem(SESSION_KEY, JSON.stringify(user));
         resolve(user as User);
@@ -1148,4 +1160,9 @@ class MockBackendService {
 }
 
 export const mockBackend = new MockBackendService();
-const API_BASE = (typeof window !== 'undefined' && window.location && !/localhost|127\.|192\.168\.|10\./.test(window.location.hostname)) ? 'https://api.skylinkwebchat.com' : '/api';
+const API_BASE = (() => {
+  const host = typeof window !== 'undefined' && window.location ? window.location.hostname : '';
+  if (/onrender\.com$/.test(host)) return 'https://skylink-auth-api.onrender.com';
+  if (/skylinkwebchat\.com$/.test(host)) return '/api';
+  return '/api';
+})();

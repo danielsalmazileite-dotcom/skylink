@@ -21,7 +21,7 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    allowedHosts: ['skylinkwebchat.com', 'skylinkwebchat.loca.lt'],
+    allowedHosts: ['skylinkwebchat.com', 'www.skylinkwebchat.com', 'skylinkwebchat.loca.lt'],
     proxy: {
       '/api': {
         target: 'http://localhost:4000',

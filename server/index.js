@@ -32,7 +32,9 @@ app.use(cors({
     'http://localhost:3002',
     'http://localhost:3000',
     'https://skylinkwebchat.com',
+    'https://www.skylinkwebchat.com',
     'https://skylinkwebchat.loca.lt',
+    'https://skylink-auth-api.onrender.com',
   ],
   credentials: true,
 }));

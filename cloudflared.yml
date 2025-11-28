@@ -3,6 +3,8 @@ credentials-file: C:\Users\danie\.cloudflared\7a8e05ce-32e8-47d1-973d-454d429305
 ingress:
   - hostname: skylinkwebchat.com
     service: http://localhost:3002
+  - hostname: www.skylinkwebchat.com
+    service: http://localhost:3002
   - hostname: api.skylinkwebchat.com
     service: http://localhost:4000
   - service: http_status:404
